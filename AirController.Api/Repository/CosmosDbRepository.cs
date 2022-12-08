@@ -28,12 +28,13 @@ namespace AirController.Api.Repository
                 .GetCollection<AirPollutionAnalytic>(GlobalConfig.AirPollutionCollectionName)
                 .FindAsync(_ => true);
             var data = await allCursorData.ToListAsync();
+            var orderedData = data.OrderByDescending(x => x.Status);
 
-            _cacher.Set(GlobalConfig.AirPollutionCacheKey, data,
+            _cacher.Set(GlobalConfig.AirPollutionCacheKey, orderedData,
                 new MemoryCacheEntryOptions()
                .SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
 
-            return data;
+            return orderedData;
         }
 
         public async Task InsertAirPollutionAsync(AirPollutionAnalytic pollutionAnalytic)
