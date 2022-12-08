@@ -1,0 +1,42 @@
+﻿@using AirController.Api.Controllers;
+@using System.Net.Http;
+@model dynamic
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+<h1>All air pollution information</h1>
+<table>
+    <tr>
+        <td style="width:10%">Date and Time</td>
+        <td style="width:10%">Status</td>
+        <td style="width:10%">Location</td>
+    </tr>
+   @foreach (var item in Model)
+    {
+        <tr>
+            <td style="width:10%">@item.LastModified</td>
+            <td style="width:10%">@item.Status</td>
+            <td style="width:10%">@item.Location</td>
+            <td style="width:10%">
+                @using (Html.BeginForm("DeleteForId", "AirPollution", new { guid = item.Id }))
+                {
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input style="height:20%; width:30%; background-color:darkkhaki; font-size: 20px;" type="submit" value="Delete" class="btn btn-default" />
+                        </div>
+                    </div>
+                }
+            </td>
+        </tr>
+    }
+</table>
+}
