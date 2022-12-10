@@ -9,5 +9,7 @@ namespace AirController.Api.Repository
         Task DeleteForIdAsync(string guid);
         Task InsertTemperatureAsync(TemperatureAnalyticModel pollutionAnalytic);
         Task<TemperatureAnalyticModel> GetTemperatureAnalyticItemAsync();
-    }
+        SongModel? GetSong();
+        void SetSong(SongModel song);
+	}
 }

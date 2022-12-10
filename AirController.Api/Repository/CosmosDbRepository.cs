@@ -93,5 +93,23 @@ namespace AirController.Api.Repository
 
             return data;
         }
-    }
+
+        public SongModel? GetSong()
+        {
+			if (_cacher.TryGetValue(GlobalConfig.MelodyCacheKey, out SongModel songModel))
+				return songModel;
+
+            return new SongModel();
+		}
+
+		public void SetSong(SongModel song)
+		{
+            if (_cacher.TryGetValue(GlobalConfig.MelodyCacheKey, out SongModel songModel))
+                return;
+
+			_cacher.Set(GlobalConfig.MelodyCacheKey, song,
+			new MemoryCacheEntryOptions()
+			.SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
+		}
+	}
 }
