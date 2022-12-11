@@ -17,7 +17,7 @@ namespace AirController.Api.Controllers
             => View(_repository.GetSong());
 
         [HttpPost]
-        public void SetSong([FromBody] SongModel songModel)
+        public void SetSong([FromQuery] SongModel songModel)
             => _repository.SetSong(songModel);
 	}
 }
