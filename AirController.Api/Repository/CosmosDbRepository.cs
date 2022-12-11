@@ -104,9 +104,6 @@ namespace AirController.Api.Repository
 
 		public void SetSong(SongModel song)
 		{
-            if (_cacher.TryGetValue(GlobalConfig.MelodyCacheKey, out SongModel songModel))
-                return;
-
 			_cacher.Set(GlobalConfig.MelodyCacheKey, song,
 			new MemoryCacheEntryOptions()
 			.SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
